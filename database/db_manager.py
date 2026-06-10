@@ -315,3 +315,59 @@ class DatabaseManager:
         if hasattr(self._local, 'conn') and self._local.conn:
             self._local.conn.close()
             self._local.conn = None
+
+def get_health_metrics(user_id: str, hours: int = 24) -> list:
+    """
+    Retrieve historical health log records for analytics.
+    Maps database-specific columns to standard format expected by the Streamlit frontend.
+    """
+    db_path = "visionmate.db" # Or use custom relative path to database
+    if not os.path.exists(db_path):
+        return []
+
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # Query logs matching the user and time constraint
+    query = """
+        SELECT 
+            timestamp,
+            eye_consensus,
+            posture_consensus,
+            health_score,
+            model_c1_score as ear_value,
+            model_a2_score as posture_angle
+        FROM model_logs
+        WHERE user_id = ? 
+          AND timestamp >= datetime('now', ?)
+        ORDER BY timestamp ASC
+    """
+    
+    try:
+        cursor.execute(query, (user_id, f'-{hours} hours'))
+        rows = cursor.fetchall()
+        
+        metrics = []
+        for row in rows:
+            # Map database consensus statuses to front-end camel casing: "Normal"/"Strained" & "Good"/"Slouching"
+            eye_raw = str(row["eye_consensus"]).upper()
+            post_raw = str(row["posture_consensus"]).upper()
+            
+            eye_status = "Strained" if "STRAIN" in eye_raw else "Normal"
+            posture_status = "Slouching" if "SLOUCH" in post_raw else "Good"
+            
+            metrics.append({
+                "timestamp":     row["timestamp"],
+                "eye_status":     eye_status,
+                "posture_status": posture_status,
+                "health_score":   row["health_score"] or 50,
+                "ear_value":      row["ear_value"] or 0.0,
+                "posture_angle":  row["posture_angle"] or 0.0
+            })
+        return metrics
+    except sqlite3.OperationalError as e:
+        print(f"Database query error: {e}")
+        return []
+    finally:
+        conn.close()
