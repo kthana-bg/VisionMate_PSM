@@ -1,0 +1,36 @@
+{
+  "model_name": "EfficientNetB0",
+  "task": "Eye Strain Detection",
+  "accuracy": 0.5059,
+  "precision": 0.256,
+  "recall": 0.5059,
+  "f1_score": 0.34,
+  "latency_ms": 86.54,
+  "confusion_matrix": [
+    [
+      8591,
+      0
+    ],
+    [
+      8389,
+      0
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n      Normal       0.51      1.00      0.67      8591\n    Strained       0.00      0.00      0.00      8389\n\n    accuracy                           0.51     16980\n   macro avg       0.25      0.50      0.34     16980\nweighted avg       0.26      0.51      0.34     16980\n",
+  "classes": [
+    "Normal",
+    "Strained"
+  ],
+  "hyperparameters": {
+    "image_size": [
+      32,
+      64
+    ],
+    "batch_size": 32,
+    "epochs_phase1": 15,
+    "epochs_phase2": 25,
+    "lr_phase1": 0.001,
+    "lr_phase2": 5e-05,
+    "unfreeze_layers": 40
+  }
+}

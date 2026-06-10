@@ -1,0 +1,36 @@
+{
+  "model_name": "MobileNetV2",
+  "task": "Eye Strain Detection",
+  "accuracy": 0.9784,
+  "precision": 0.9785,
+  "recall": 0.9784,
+  "f1_score": 0.9784,
+  "latency_ms": 73.78,
+  "confusion_matrix": [
+    [
+      8458,
+      133
+    ],
+    [
+      234,
+      8155
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n      Normal       0.97      0.98      0.98      8591\n    Strained       0.98      0.97      0.98      8389\n\n    accuracy                           0.98     16980\n   macro avg       0.98      0.98      0.98     16980\nweighted avg       0.98      0.98      0.98     16980\n",
+  "classes": [
+    "Normal",
+    "Strained"
+  ],
+  "hyperparameters": {
+    "image_size": [
+      32,
+      64
+    ],
+    "batch_size": 32,
+    "epochs_phase1": 15,
+    "epochs_phase2": 20,
+    "lr_phase1": 0.001,
+    "lr_phase2": 0.0001,
+    "unfreeze_layers": 30
+  }
+}

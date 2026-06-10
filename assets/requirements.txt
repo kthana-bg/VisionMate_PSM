@@ -1,0 +1,31 @@
+# Core framework
+streamlit==1.36.0
+
+# WebRTC - the correct version that works with Streamlit Cloud
+# Must pin aiortc and its deps to avoid binary build failures
+streamlit-webrtc==0.47.6
+aiortc==1.6.0
+av==10.0.0
+
+# Computer vision - headless for cloud (no GUI needed)
+opencv-python-headless==4.9.0.80
+mediapipe>=0.10.30
+
+# Deep learning - CPU version for Streamlit Cloud (no GPU available)
+tensorflow-cpu==2.15.0
+tf-keras
+
+# Data
+numpy
+pandas
+scikit-learn
+scipy
+Pillow
+
+# Visualization
+plotly
+
+# Utilities
+joblib
+h5py
+python-dotenv

@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Database (regenerated on startup)
+database/visionmate.db
+
+# Local data
+data/eye_dataset/
+data/posture_dataset/posture_data.csv
+
+# Env
+.env
+.venv
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Deployment files not needed for Streamlit Cloud
+Dockerfile
+deploy.sh
+verify_setup.py
+train_eye_models.py
+train_posture_models.py
+run_all_training.py

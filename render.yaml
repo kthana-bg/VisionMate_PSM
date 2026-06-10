@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: visionmate
+    runtime: python
+    region: singapore
+    plan: free
+    pythonVersion: "3.11.9"
+
+    buildCommand: >-
+      apt-get update -qq &&
+      apt-get install -y -qq libgl1 libglib2.0-0 libsrtp2-1 &&
+      pip install -r requirements.txt
+
+    # start.py launches FastAPI (port 8000) + Streamlit ($PORT) in one dyno.
+    # Render routes external HTTPS to $PORT (Streamlit).
+    # The browser posts frames to /api/* which Nginx inside the dyno
+    # proxies to FastAPI on port 8000.  See the rewriteRules below.
+    startCommand: python start.py
+
+    # Expose Streamlit on Render's public port
+    # FastAPI runs internally on 8000 — reached via /api/ rewrite
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: "true"
+      - key: STREAMLIT_BROWSER_GATHER_USAGE_STATS
+        value: "false"
+      - key: DEBIAN_FRONTEND
+        value: noninteractive
+
+    autoDeploy: true

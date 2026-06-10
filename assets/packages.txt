@@ -1,0 +1,13 @@
+# System libraries needed on Streamlit Cloud (Ubuntu)
+libgl1
+libglib2.0-dev
+libgles2
+libegl1
+# Required by aiortc for WebRTC audio/video codec support
+libavcodec-dev
+libavformat-dev
+libavutil-dev
+libswscale-dev
+libsrtp2-dev
+libopus-dev
+libvpx-dev

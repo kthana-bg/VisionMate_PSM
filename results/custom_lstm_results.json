@@ -1,0 +1,50 @@
+{
+  "model_name": "Custom LSTM/DNN",
+  "task": "Posture Detection",
+  "dataset": "alnatron/posture-detection",
+  "features": [
+    "angle_y",
+    "angle_z",
+    "emg"
+  ],
+  "binary_map": {
+    "Good Posture": 0,
+    "Slouching": 1,
+    "Leaning Forward": 1,
+    "Neck Bend": 1,
+    "Shoulder Tilt": 1
+  },
+  "accuracy": 0.6078,
+  "precision": 0.6111,
+  "recall": 0.6078,
+  "f1_score": 0.6094,
+  "roc_auc": 0.5468,
+  "latency_ms": 82.31,
+  "confusion_matrix": [
+    [
+      929,
+      1726
+    ],
+    [
+      1804,
+      4541
+    ]
+  ],
+  "classification_report": "               precision    recall  f1-score   support\n\n         Good       0.34      0.35      0.34      2655\nSlouching/Bad       0.72      0.72      0.72      6345\n\n     accuracy                           0.61      9000\n    macro avg       0.53      0.53      0.53      9000\n weighted avg       0.61      0.61      0.61      9000\n",
+  "classes": [
+    "Good",
+    "Slouching/Bad"
+  ],
+  "all_posture_classes": [
+    "Good Posture",
+    "Leaning Forward",
+    "Neck Bend",
+    "Shoulder Tilt",
+    "Slouching"
+  ],
+  "hyperparameters": {
+    "batch_size": 32,
+    "epochs": 80,
+    "lr": 0.001
+  }
+}
